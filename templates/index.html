@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Analiza danych z Otodom</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            width: 150px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        li a:hover {
+            background-color: #111;
+        }
+        .main-content {
+            margin-left: 150px;
+            padding: 20px;
+        }
+        form {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/process">Generate a list of apartments</a></li>
+        <li><a href="/process">Generate a Bar Chart</a></li>
+        <li><a href="/process">Generate a Map Chart</a></li>
+    </ul>
+
+    <div class="main-content">
+        <h1>Wyszukiwanie mieszkań w Krakowie</h1>
+        <form method="post" action="/process">
+            <div>
+                <label for="metraz">Metraż mieszkania (w m²):</label>
+                <input type="number" id="metraz" name="metraz" min="1" placeholder="Podaj metraż" required>
+            </div>
+
+            <fieldset>
+                <legend>Wybierz dzielnice:</legend>
+                <div>
+                    <label><input type="checkbox" name="dzielnica" value="Stare Miasto"> Stare Miasto</label>
+                    <label><input type="checkbox" name="dzielnica" value="Grzegórzki"> Grzegórzki</label>
+                    <label><input type="checkbox" name="dzielnica" value="Prądnik Czerwony"> Prądnik Czerwony</label>
+                    <label><input type="checkbox" name="dzielnica" value="Prądnik Biały"> Prądnik Biały</label>
+                    <label><input type="checkbox" name="dzielnica" value="Krowodrza"> Krowodrza</label>
+                    <label><input type="checkbox" name="dzielnica" value="Bronowice"> Bronowice</label>
+                    <label><input type="checkbox" name="dzielnica" value="Zwierzyniec"> Zwierzyniec</label>
+                    <label><input type="checkbox" name="dzielnica" value="Dębniki"> Dębniki</label>
+                    <label><input type="checkbox" name="dzielnica" value="Łagiewniki-Borek Fałęcki"> Łagiewniki-Borek Fałęcki</label>
+                    <label><input type="checkbox" name="dzielnica" value="Swoszowice"> Swoszowice</label>
+                    <label><input type="checkbox" name="dzielnica" value="Podgórze Duchackie"> Podgórze Duchackie</label>
+                    <label><input type="checkbox" name="dzielnica" value="Bieżanów-Prokocim"> Bieżanów-Prokocim</label>
+                    <label><input type="checkbox" name="dzielnica" value="Podgórze"> Podgórze</label>
+                    <label><input type="checkbox" name="dzielnica" value="Czyżyny"> Czyżyny</label>
+                    <label><input type="checkbox" name="dzielnica" value="Mistrzejowice"> Mistrzejowice</label>
+                    <label><input type="checkbox" name="dzielnica" value="Bieńczyce"> Bieńczyce</label>
+                    <label><input type="checkbox" name="dzielnica" value="Wzgórza Krzesławickie"> Wzgórza Krzesławickie</label>
+                    <label><input type="checkbox" name="dzielnica" value="Nowa Huta"> Nowa Huta</label>
+                    <label><input type="checkbox" name="dzielnica" value="Wieliczka"> Wieliczka</label>
+                </div>
+            </fieldset>
+
+            <input type="submit" value="Szukaj">
+        </form>
+    </div>
+</body>
+</html>

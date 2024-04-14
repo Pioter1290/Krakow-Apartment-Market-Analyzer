@@ -43,21 +43,21 @@
 <body>
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/process">Generate a list of apartments</a></li>
-        <li><a href="/process">Generate a Bar Chart</a></li>
-        <li><a href="/process">Generate a Map Chart</a></li>
+        <li><a href="/generate_all_flats">Generate a list of all apartments</a></li>
+        <li><a href="/generate_chart">Generate a Bar Chart</a></li>
+        <li><a href="/generate_map_chart">Generate a Map Chart</a></li>
     </ul>
 
     <div class="main-content">
-        <h1>Wyszukiwanie mieszkań w Krakowie</h1>
+        <h1>Searching for apartments in Krakow</h1>
         <form method="post" action="/process">
             <div>
-                <label for="metraz">Metraż mieszkania (w m²):</label>
-                <input type="number" id="metraz" name="metraz" min="1" placeholder="Podaj metraż" required>
+                <label for="metraz">Enter the minimum area of your apartment:</label>
+                <input type="number" id="metraz" name="metraz" min="1" placeholder="" required>
             </div>
 
             <fieldset>
-                <legend>Wybierz dzielnice:</legend>
+                <legend>Select the district you are interested in:</legend>
                 <div>
                     <label><input type="checkbox" name="dzielnica" value="Stare Miasto"> Stare Miasto</label>
                     <label><input type="checkbox" name="dzielnica" value="Grzegórzki"> Grzegórzki</label>
@@ -81,7 +81,7 @@
                 </div>
             </fieldset>
 
-            <input type="submit" value="Szukaj">
+            <input type="submit" value="Search">
         </form>
     </div>
 </body>

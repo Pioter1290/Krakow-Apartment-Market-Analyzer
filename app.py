@@ -13,8 +13,34 @@ def index():
     return render_template('index.html')
 @app.route('/generate_chart')
 def generate_chart_bar():
-    # Assuming generate_all_flats() returns flats_info DataFrame
-    flats_info = generate_all_flats()
+    url = "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie/malopolskie/krakow/krakow/krakow?viewType=listing"
+    pages = []
+    for page_number in range(1, 5):
+        req = urlrequest.Request(f'{url}&page={page_number}', headers={'User-Agent': 'Mozilla/5.0'})
+        with urlrequest.urlopen(req) as resp:
+            processed_page = BeautifulSoup(resp.read().decode('utf-8'), "html.parser")
+            pages.append(processed_page)
+
+    flats = []
+    districts = {'Stare Miasto', 'Grzegórzki', 'Prądnik Czerwony', 'Prądnik Biały', 'Krowodrza', 'Bronowice',
+                 'Zwierzyniec', 'Dębniki', 'Łagiewniki-Borek Fałęcki', 'Swoszowice', 'Podgórze Duchackie',
+                 'Bieżanów-Prokocim', 'Podgórze', 'Czyżyny', 'Mistrzejowice', 'Bieńczyce', 'Wzgórza Krzesławickie',
+                 'Nowa Huta', 'Wieliczka'}
+
+    for page in pages:
+        for flat_html in page.find_all(class_="css-136g1q2 e88tro00"):
+            flat = {}
+            flat['adres'] = flat_html.find(class_="css-12h460e efr035y1").text.strip()
+            flat_data = str(flat_html.find(class_="css-uki0wd e12r8p6s1"))
+            parse_flat_details(flat, flat_data)
+            if any(district in flat['adres'] for district in districts):
+                flat['dzielnica'] = next(district for district in districts if district in flat['adres'])
+
+            url_element = flat_html.find('a', attrs={'data-cy': 'listing-item-link'}).get('href')
+            flat['url'] = 'https://www.otodom.pl' + url_element if url_element else 'NONE'
+            flats.append(flat)
+
+    flats_info = pd.DataFrame(flats)
 
     dzielnice_count = flats_info['dzielnica'].value_counts()
 
@@ -38,7 +64,7 @@ def generate_chart_bar():
 def generate_all_flats():
     url = "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie/malopolskie/krakow/krakow/krakow?viewType=listing"
     pages = []
-    for page_number in range(1, 5):  # Możesz zwiększyć liczbę stron, jeśli potrzebujesz więcej danych
+    for page_number in range(1, 5):
         req = urlrequest.Request(f'{url}&page={page_number}', headers={'User-Agent': 'Mozilla/5.0'})
         with urlrequest.urlopen(req) as resp:
             processed_page = BeautifulSoup(resp.read().decode('utf-8'), "html.parser")
